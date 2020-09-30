@@ -33,7 +33,7 @@ def main():
     plot_sin(x)
     plot_sigmoid(x)
 
-    # Furthermore, we can set a title to out plot
+    # Furthermore, we can set a title to our plot
     plt.title('Plot examples')
 
     # We can do the same for axes
