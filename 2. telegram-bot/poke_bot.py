@@ -5,10 +5,13 @@ Profile URL: t.me/ProgrammingPokeBot
 """
 
 import os
+import random
 import requests
 
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+import tg
 
 
 ################################################################################
@@ -24,10 +27,9 @@ def find_by_name(name):
 
 ################################################################################
 
-# Define a few command handlers. These usually take the two arguments update and
-# context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
     """Send a message when the command /start is issued."""
+
     update.message.reply_markdown("""
     Hi! I am a **Pokemon Bot**
 
@@ -50,18 +52,34 @@ def pokemon(update, context):
 
     sprite_url = pokemon['sprites']['other']['official-artwork']['front_default']
     update.message.reply_photo(sprite_url)
+    update.message.reply_text(_fmt_pkmn_stats(pokemon),
+                              parse_mode=telegram.ParseMode.MARKDOWN)
 
+
+def rand_pokemon(update, context):
+    pokemon_name = update.message.text
+    pokemon = find_by_name(str(random.randint(0, 152)))
+    if pokemon is None:
+        update.message.reply_text(f'Pokemon "{pokemon_name}" does not exist...')
+        return
+
+    sprite_url = pokemon['sprites']['other']['official-artwork']['front_default']
+    update.message.reply_photo(sprite_url)
+    update.message.reply_text(_fmt_pkmn_stats(pokemon),
+                              parse_mode=telegram.ParseMode.MARKDOWN)
+
+
+def _fmt_pkmn_stats(pokemon):
     metadata = f"Pokemon ID: {pokemon['id']}\n"
+    metadata += f"Name: {pokemon['name'].capitalize()}"
     stats = '\n'.join(f"*{o['stat']['name'].capitalize()}*: {o['base_stat']}" 
                       for o in pokemon['stats'])
-    message = f"*Pokemon data* \n{metadata}*Stats* \n{stats}"
-    update.message.reply_text(message, parse_mode=telegram.ParseMode.MARKDOWN)
+    return f"*Pokemon data* \n{metadata}*Stats* \n{stats}"
 
 
 ################################################################################
 
 def main():
-
     updater = Updater(os.environ['TOKEN'], use_context=True)
 
     dp = updater.dispatcher
@@ -69,8 +87,12 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help_command))
 
-    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, pokemon))
+    random_pkm_filter = tg.MatchesFilter('!random')
 
+    dp.add_handler(MessageHandler(random_pkm_filter & ~Filters.command, rand_pokemon))
+    dp.add_handler(MessageHandler(Filters.text & 
+                                  ~Filters.command & 
+                                  ~random_pkm_filter, pokemon))
     updater.start_polling()
 
     print('Running bot...')
