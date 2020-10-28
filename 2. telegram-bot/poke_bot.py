@@ -49,7 +49,7 @@ def pokemon(update, context):
         return
 
     sprite_url = pokemon['sprites']['other']['official-artwork']['front_default']
-    update.message.reply_photo(sprite_url)
+    send_photo(message, sprite_url)
     update.message.reply_text(_fmt_pkmn_stats(pokemon),
                               parse_mode=telegram.ParseMode.MARKDOWN)
 
