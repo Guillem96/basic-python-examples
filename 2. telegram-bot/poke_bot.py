@@ -30,12 +30,10 @@ def find_by_name(name):
 def start(update, context):
     """Send a message when the command /start is issued."""
 
-    update.message.reply_markdown("""
-    Hi! I am a **Pokemon Bot**
-
-    Send me a pokemon name and I'll respond you with his sprite. And some
-    intersting facts about him.
-    """)
+    update.message.reply_text("""
+Hi! I am a *Pokemon Bot*
+Send me a pokemon name and I'll respond you with his sprite. And some intersting facts about him.
+    """, parse_mode=telegram.ParseMode.MARKDOWN)
 
 
 def help_command(update, context):
@@ -74,7 +72,7 @@ def _fmt_pkmn_stats(pokemon):
     metadata += f"Name: {pokemon['name'].capitalize()}"
     stats = '\n'.join(f"*{o['stat']['name'].capitalize()}*: {o['base_stat']}" 
                       for o in pokemon['stats'])
-    return f"*Pokemon data* \n{metadata}*Stats* \n{stats}"
+    return f"*Pokemon data* \n{metadata} \n*Stats* \n{stats}"
 
 
 ################################################################################

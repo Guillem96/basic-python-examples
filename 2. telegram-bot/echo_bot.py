@@ -3,7 +3,12 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 
 def start(update, context):
-    update.message.reply_text('Hi!')
+    # Here we receive an update object (https://python-telegram-bot.readthedocs.io/en/stable/telegram.update.html?highlight=Update#telegram-update)
+    # Update object contains a message object
+    message = update.message
+    # With Message we can reply with text, images, audio, etc..
+    # https://python-telegram-bot.readthedocs.io/en/stable/telegram.message.html
+    message.reply_text('Hi!')
 
 
 def echo(update, context):
