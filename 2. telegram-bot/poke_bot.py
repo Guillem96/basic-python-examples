@@ -11,7 +11,7 @@ import requests
 import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-import tg
+from tg import *
 
 
 ################################################################################
@@ -49,7 +49,7 @@ def pokemon(update, context):
         return
 
     sprite_url = pokemon['sprites']['other']['official-artwork']['front_default']
-    send_photo(message, sprite_url)
+    send_photo(update.message, sprite_url)
     update.message.reply_text(_fmt_pkmn_stats(pokemon),
                               parse_mode=telegram.ParseMode.MARKDOWN)
 
@@ -85,7 +85,7 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help_command))
 
-    random_pkm_filter = tg.MatchesFilter('!random')
+    random_pkm_filter = MatchesFilter('!random')
 
     dp.add_handler(MessageHandler(random_pkm_filter & ~Filters.command, rand_pokemon))
     dp.add_handler(MessageHandler(Filters.text & 
