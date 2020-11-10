@@ -37,6 +37,7 @@ shop = {
     }
 }
 
+
 # Ex 3 Menu ####################################################################
 
 def menu(options, title):
@@ -79,6 +80,16 @@ def sell_menu(player, shop):
 # Ex4 Buy Logic ################################################################
 
 def buy(player, shop, item_name):
+    # TODO: Implement this
+    if True:
+        return False
+    else:
+        return True
+
+
+# Ex5 Sell Logic ################################################################
+
+def sell(player, shop, item_name):
     # TODO: Implement this
     if True:
         return False
