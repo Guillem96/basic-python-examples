@@ -1,4 +1,5 @@
 import random
+import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler
 
 
@@ -67,7 +68,7 @@ def help_command(update, context):
 
     - */help*: Ask for help
     - */inventory*: List player's status (items and gold)
-    - */shop-items*: List available shop items
+    - */shopitems*: List available shop items
     - */buy*: Buy an item. Expects an item name by parameter
     """
     update.message.reply_text(text, parse_mode=telegram.ParseMode.MARKDOWN)
@@ -92,7 +93,7 @@ def main():
     dp.add_handler(CommandHandler("sell", sell_callback))
 
     # List the available shop items
-    dp.add_handler(CommandHandler("shop-items", list_shop_items))
+    dp.add_handler(CommandHandler("shopitems", list_shop_items))
 
     updater.start_polling()
     updater.idle()
