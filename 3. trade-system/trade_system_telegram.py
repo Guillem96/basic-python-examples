@@ -66,12 +66,12 @@ def help_command(update, context):
     text = """
     Available commands:
 
-    - */help*: Ask for help
-    - */inventory*: List player's status (items and gold)
-    - */shopitems*: List available shop items
-    - */buy*: Buy an item. Expects an item name by parameter
+    - /help: Ask for help
+    - /inventory: List player's status (items and gold)
+    - /shopitems: List available shop items
+    - /buy: Buy an item. Expects an item name by parameter
     """
-    update.message.reply_text(text, parse_mode=telegram.ParseMode.MARKDOWN)
+    update.message.reply_text(text)
 
 
 def main():
