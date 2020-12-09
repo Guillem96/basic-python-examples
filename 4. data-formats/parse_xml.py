@@ -2,9 +2,10 @@ import xml.etree.ElementTree as ET
 
 root = ET.parse('sample.xml').getroot()
 print('Root:', root)
-
+books = [] 
 for book in root:
     title = book.find('title').text
     author = book.find('author').text
     year = int(book.find('year').text)
-    print(f'Book: {title} by {author} ({year})')
+    print(f'Book: {title} by {author} ({year})') 
+    books.append(title)
