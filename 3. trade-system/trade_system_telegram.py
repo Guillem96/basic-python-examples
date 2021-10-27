@@ -5,14 +5,20 @@ from telegram.ext import CommandHandler, Updater
 
 from tg import AnyMessage
 
-player = {"gold": 21, "inventory": {"sword": 1, "apple": 3}}
+player = {
+    "gold": random.randint(10, 50),
+    "inventory": {
+        "sword": 1,
+        "apple": 3,
+    },
+}
 
 shop = {
     "stock": {
         "shield": 3,
         "special sword": 2,
         "apple": 10,
-        "wood log": 99,
+        "wood log": 99
     },
     "prices": {
         "shield": 100,
@@ -59,7 +65,7 @@ def player_info_cb(update, context):
 
 
 def buy(player, shop, item_name):
-    if item_name not in shop:
+    if item_name not in shop["stock"]:
         return False
     elif player["gold"] < shop["prices"][item_name]:
         return False
