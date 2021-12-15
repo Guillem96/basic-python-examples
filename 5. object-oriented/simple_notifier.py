@@ -12,7 +12,7 @@ class Notifier:
         text = """
         Available commands:
         - /help: Ask for help
-        - /subscribe: Subscribe to crypto currencies notifications
+        - /subscribe: Subscribe to get the messages
         - /unsubscribe: Revoke subscription
         """
         update.message.reply_text(text)
@@ -20,8 +20,7 @@ class Notifier:
     def start_callback(self, update, context):
         text = """
         Hello!
-        I am a bot that notifies you every minute about the new crypto currency
-        rates.
+        I am a bot that notifies you random messages.
         If you want to subscribe to my notifications type /subscribe
         """
         update.message.reply_text(text)
